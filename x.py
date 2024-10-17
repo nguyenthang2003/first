@@ -46,7 +46,7 @@ activity = st.selectbox('Chọn mức độ hoạt động của bạn:', list(a
 # Tính toán kết hợp (BMI, BMR, TDEE)
 st.header('Kết quả tính BMI, BMR và TDEE')
 if st.button('Tính tất cả'):
-    if w > 0 và h > 0 và age > 0:
+    if w > 0 and h > 0 and age > 0:
         # Tính BMI
         bmi = bmi_cal(w, h)
         best_w = 22.5 * (h / 100) ** 2
