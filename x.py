@@ -1,55 +1,55 @@
 import streamlit as st
 
-# BMI calculation function
+# Hàm tính toán BMI
 def bmi_cal(w, h):
     return w / (h / 100)**2
 
-# BMR calculation function
+# Hàm tính toán BMR
 def bmr_cal(w, h, age, gender):
-    if gender == 'male':
+    if gender == 'nam':
         return 10 * w + 6.25 * h - 5 * age + 5
     else:
         return 10 * w + 6.25 * h - 5 * age - 161
 
-# Streamlit app title and inputs
-st.title('BMI, BMR, TDEE Calculator')
-st.write('Enter your height, weight, age, and gender for calculation')
+# Tiêu đề và các mục nhập của ứng dụng Streamlit
+st.title('Công cụ tính BMI, BMR, và TDEE')
+st.write('Nhập chiều cao, cân nặng, tuổi và giới tính của bạn để tính toán')
 
-# User inputs
-w = st.number_input('Weight (kg):', min_value=0.0, step=0.5)
-h = st.number_input('Height (cm):', min_value=0.0, step=0.5)
-age = st.number_input('Age (years):', min_value=10, step=1)
-gender = st.radio('Gender: ', ('male', 'female'))
+# Nhập liệu từ người dùng
+w = st.number_input('Cân nặng (kg):', min_value=0.0, step=0.5)
+h = st.number_input('Chiều cao (cm):', min_value=0.0, step=0.5)
+age = st.number_input('Tuổi (năm):', min_value=10, step=1)
+gender = st.radio('Giới tính: ', ('nam', 'nữ'))
 
-# Activity level dictionary and selection
+# Danh sách mức độ hoạt động và lựa chọn
 activity_list = {
-    'no': 1.2,
-    'lightly': 1.375,
-    'moderate': 1.55,
-    'very': 1.725,
-    'extremely': 1.9
+    'không': 1.2,
+    'nhẹ': 1.375,
+    'vừa': 1.55,
+    'nặng': 1.725,
+    'rất nặng': 1.9
 }
-activity = st.selectbox('Choose your level of activity:', list(activity_list.keys()))
+activity = st.selectbox('Chọn mức độ hoạt động của bạn:', list(activity_list.keys()))
 
-# Combined Calculation (BMI, BMR, TDEE)
-st.header('BMI, BMR, and TDEE Calculation')
-if st.button('Calculate All'):
+# Tính toán kết hợp (BMI, BMR, TDEE)
+st.header('Kết quả tính BMI, BMR và TDEE')
+if st.button('Tính tất cả'):
     if w > 0 and h > 0 and age > 0:
-        # Calculate BMI
+        # Tính BMI
         bmi = bmi_cal(w, h)
         best_w = 22.5 * (h / 100) ** 2
-        st.write(f'Your BMI is: {bmi:.2f}')
-        st.write(f'Your optimal weight should be: {best_w:.1f} kg')
+        st.write(f'Chỉ số BMI của bạn là: {bmi:.2f}')
+        st.write(f'Cân nặng lý tưởng của bạn nên là: {best_w:.1f} kg')
         
-        # Calculate BMR
+        # Tính BMR
         bmr = bmr_cal(w, h, age, gender)
-        st.success(f'Your BMR is: {bmr:.2f} kcal/day')
+        st.success(f'Chỉ số BMR của bạn là: {bmr:.2f} kcal/ngày')
         
-        # Calculate TDEE
+        # Tính TDEE
         tdee = bmr * activity_list[activity]
-        st.success(f'Your TDEE is: {tdee:.2f} kcal/day')
+        st.success(f'Nhu cầu năng lượng hàng ngày của bạn (TDEE) là: {tdee:.2f} kcal/ngày')
     else:
-        st.error('Please enter valid weight, height, and age data.')
+        st.error('Vui lòng nhập dữ liệu hợp lệ về cân nặng, chiều cao và tuổi.')
 
 st.markdown("""<hr style="border:1px solid gray">""", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: gray;'>© 2024 by Bac si Thang Nguyen. All rights reserved.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: gray;'>© 2024 bởi Bác sĩ Thắng Nguyễn. Bảo lưu mọi quyền.</p>", unsafe_allow_html=True)
